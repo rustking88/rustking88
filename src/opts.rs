@@ -11,7 +11,7 @@ pub struct Opts {
 #[derive(Subcommand, Debug)]
 pub enum SubCommands {
     /// does testing things
-    #[command(name = "csv2", about = "show csv, or to other format")]
+    #[command(name = "csv1", about = "show csv, or to other format")]
     Csv(CsvOpts),
 }
 #[derive(Parser, Debug)]
