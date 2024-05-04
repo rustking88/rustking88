@@ -13,6 +13,8 @@ pub enum SubCommands {
     /// does testing things
     #[command(name = "csv", about = "show csv, or to other format")]
     Csv(CsvOpts),
+    #[command(name = "genpass", about = "show json, or to other format")]
+    GenPass(GenPassOpts),
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -32,7 +34,20 @@ pub struct CsvOpts {
     pub format: OutputFormat,
     #[arg(long, default_value_t = true)]
     pub header: bool,
+}
 
+#[derive(Parser, Debug)]
+pub struct GenPassOpts {
+    #[arg(short, long, default_value_t = 16)]
+    pub length: u8,
+    #[arg(short, long, default_value_t = true)]
+    pub uppercase: bool,
+    #[arg(long, default_value_t = true)]
+    pub lowercase: bool,
+    #[arg(short, long, default_value_t = true)]
+    pub number: bool,
+    #[arg(short, long, default_value_t = true)]
+    pub symol: bool,
 }
 
 fn verify_input_file(filename: &str) -> Result<String, String> {
@@ -67,7 +82,6 @@ impl FromStr for OutputFormat {
             _ => Err("invalid format"),
         }
     }
-    
 }
 
 impl fmt::Display for OutputFormat {
