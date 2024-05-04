@@ -1,5 +1,8 @@
 use clap::Parser;
-use rcli::{process_csv, process_genpass, Opts, SubCommands};
+use rcli::{
+    process_csv, process_decode, process_encode, process_genpass, Base64SubCommand, Opts,
+    SubCommands,
+};
 
 fn main() -> anyhow::Result<()> {
     let opts = Opts::parse();
@@ -16,6 +19,12 @@ fn main() -> anyhow::Result<()> {
             opts.number,
             opts.symol,
         )?,
+        SubCommands::Base64(Base64SubCommand::Encode(opts)) => {
+            process_encode(&opts.input, opts.format)?;
+        }
+        SubCommands::Base64(Base64SubCommand::Decode(opts)) => {
+            process_decode(&opts.input, opts.format)?;
+        }
     }
     Ok(())
 }
