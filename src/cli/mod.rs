@@ -8,7 +8,7 @@ pub use self::{
 };
 
 use clap::Parser;
-
+use std::path::Path;
 #[derive(Parser, Debug)]
 #[command(name = "rcli", author, version, about, long_about = None)]
 pub struct Opts {
@@ -29,7 +29,7 @@ pub enum SubCommands {
 
 fn verify_input_file(filename: &str) -> Result<String, String> {
     // if input is "-" or file exists
-    if filename == "-" || std::path::Path::new(filename).exists() {
+    if filename == "-" || Path::new(filename).exists() {
         Ok(filename.to_string())
     } else {
         Err(format!("file not found: {}", filename))
